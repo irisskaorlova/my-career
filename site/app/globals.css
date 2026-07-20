@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   ПАЛИТРА САЙТА — тёплая пастель. Меняй значения здесь.
+   =========================================================== */
+:root {
+  color-scheme: light;
+
+  --bg: #faf4ee; /* фон страницы — тёплый кремовый */
+  --card: #ffffff; /* белый блок с разделами */
+  --text: #453a31; /* основной текст — тёплый тёмный */
+  --muted: #9c8b7c; /* даты, подписи, второстепенное */
+  --accent: #c0796a; /* акцент — приглушённая терракота */
+  --chip: #f3e8df; /* фон «таблеток» (навыки, контакты) */
+  --line: #ece0d5; /* тонкие линии и рамки */
+}
+
+/* --- Другие готовые пастельные гаммы ---
+   Просто подставь эти значения в блок выше.
+
+   Пудрово-розовая:
+     --bg: #fbf1f0;  --accent: #c07d80;  --chip: #f7e6e5;  --line: #f0dedd;
+
+   Мятно-шалфейная:
+     --bg: #f2f6f1;  --accent: #7f9b7f;  --chip: #e6efe5;  --line: #dde8dc;
+
+   Лавандовая:
+     --bg: #f5f2f8;  --accent: #8f82a8;  --chip: #ebe5f2;  --line: #e2dcea;
+
+   Песочно-бежевая:
+     --bg: #f8f4ea;  --accent: #b3924f;  --chip: #f1e8d5;  --line: #e9dfc9;
+*/
+
+/* Плавная прокрутка при клике по навигации */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  /* Увеличенное по клику фото не должно создавать горизонтальную прокрутку */
+  overflow-x: hidden;
+  @apply antialiased;
+}
+
+/* Белый блок, в котором лежат разделы резюме */
+.cv-card {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  @apply rounded-2xl;
+  box-shadow:
+    0 1px 2px rgba(69, 58, 49, 0.04),
+    0 10px 30px -14px rgba(69, 58, 49, 0.16);
+}
+
+/* «Таблетка» — для контактов и стека */
+.chip {
+  background-color: var(--chip);
+  @apply rounded-full px-3 py-1 text-sm;
+}
+
+/* Карточка навыка — кремовая, чтобы читалась на белом блоке */
+.skill-card {
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  @apply rounded-xl;
+}
+
+/* «Таблетка» внутри кремовой карточки — белая, с тонкой рамкой */
+.chip-light {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  @apply rounded-full px-3 py-1 text-sm;
+}
+
+/* Мягкое появление содержимого вкладки */
+.fade-in {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===========================================================
+   ПЕЧАТЬ / PDF — компактная вёрстка.
+   Экранные размеры на бумаге дают ~12 листов, поэтому здесь
+   всё ужимается: шрифты, отступы, поля страницы.
+   =========================================================== */
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+
+  /* Убираем рамку-карточку и внешние поля — печатаем во всю ширину листа */
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  .cv-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-top: 12px !important;
+  }
+
+  /* Кегли под бумагу */
+  body {
+    font-size: 10pt;
+    line-height: 1.35;
+  }
+  h1 {
+    font-size: 19pt !important;
+    line-height: 1.15 !important;
+  }
+  h2 {
+    font-size: 8pt !important;
+  }
+  h3 {
+    font-size: 10.5pt !important;
+  }
+  .cv-card p,
+  .cv-card li {
+    font-size: 9.5pt !important;
+    line-height: 1.35 !important;
+  }
+  .chip,
+  .chip-light {
+    font-size: 8.5pt !important;
+    padding: 1px 6px !important;
+  }
+
+  /* Вертикальный ритм — плотнее */
+  section {
+    margin-top: 12px !important;
+  }
+  .space-y-9 > * + * {
+    margin-top: 12px !important;
+  }
+  .space-y-8 > * + * {
+    margin-top: 10px !important;
+  }
+  .space-y-4 > * + * {
+    margin-top: 7px !important;
+  }
+  .space-y-3 > * + *,
+  .space-y-2 > * + * {
+    margin-top: 4px !important;
+  }
+  .skill-card {
+    padding: 8px 10px !important;
+  }
+
+  /* Фото поменьше */
+  aside img {
+    height: 96px !important;
+    width: 78px !important;
+  }
+
+  /* Скриншоты проектов на печати ниже — иначе раздел съедает 3-4 листа */
+  #projects img {
+    height: 90px !important;
+  }
+
+  /* Не разрывать блоки между листами */
+  section,
+  .skill-card,
+  [id^="job-"] {
+    break-inside: avoid;
+  }
+}
