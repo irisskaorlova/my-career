@@ -57,6 +57,18 @@ export default function Credentials() {
                 </p>
               )}
             </div>
+
+            {/* Результат отдельной цифрой справа, если он задан */}
+            {c.score && (
+              <div className="ml-1 shrink-0 border-l border-line pl-3.5 text-center">
+                <p className="text-xl font-medium leading-none text-accent">
+                  {c.score}
+                </p>
+                {c.scoreNote && (
+                  <p className="mt-1 text-[11px] text-muted">{c.scoreNote}</p>
+                )}
+              </div>
+            )}
           </>
         );
 

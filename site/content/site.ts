@@ -37,18 +37,23 @@ export const meta = {
 // Показываются плашками отдельным разделом, сразу после «О себе».
 // icon — какая иконка: "medal" (медаль) или "globe" (глобус)
 // link — ссылка на сертификат или реестр. Нет — просто не пиши это поле.
+// score / scoreNote — крупная цифра справа на плашке (необязательно)
 export const credentials: {
   label: string;
   title: string;
   subtitle?: string;
   icon: "medal" | "globe";
   link?: string;
+  score?: string;
+  scoreNote?: string;
 }[] = [
   {
     label: "Сертификация",
     title: "ПМ СТАНДАРТ СРП-3",
     subtitle: "Руководитель проекта",
     icon: "medal",
+    score: "90,5%",
+    scoreNote: "порог 70%",
   },
   {
     label: "Язык",
